@@ -1,0 +1,106 @@
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.root .parent {
+  display: flex;
+  height: 100vh;
+}
+.root .parent .circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.root .parent.row .circle {
+  --offset: 50px;
+  background-color: red;
+  animation: raise 5s alternate infinite ease-in-out;
+  animation-delay: var(--circle-animation-delay);
+}
+.root .parent.row .circle:nth-child(1) {
+  --circle-animation-delay: calc(sin(100deg) * 1s);
+}
+.root .parent.row .circle:nth-child(2) {
+  --circle-animation-delay: calc(sin(100deg) * 2s);
+}
+.root .parent.row .circle:nth-child(3) {
+  --circle-animation-delay: calc(sin(100deg) * 3s);
+}
+.root .parent.row .circle:nth-child(4) {
+  --circle-animation-delay: calc(sin(100deg) * 4s);
+}
+.root .parent.row .circle:nth-child(5) {
+  --circle-animation-delay: calc(sin(100deg) * 5s);
+}
+.root .parent.row .circle:nth-child(6) {
+  --circle-animation-delay: calc(sin(100deg) * 6s);
+}
+.root .parent.row .circle:nth-child(7) {
+  --circle-animation-delay: calc(sin(100deg) * 7s);
+}
+.root .parent.row .circle:nth-child(8) {
+  --circle-animation-delay: calc(sin(100deg) * 8s);
+}
+.root .parent.row .circle:nth-child(9) {
+  --circle-animation-delay: calc(sin(100deg) * 9s);
+}
+.root .parent.row .circle:nth-child(10) {
+  --circle-animation-delay: calc(sin(100deg) * 10s);
+}
+.root .parent.round {
+  position: relative;
+  perspective: 100vmin;
+  transform: rotateX(0deg);
+  transform-style: preserve-3d;
+  animation: rotateX 5s infinite alternate;
+}
+.root .parent.round .circle {
+  background-color: blue;
+  position: absolute;
+  inset: 50%;
+  --offset: 100px;
+  transform: translate(calc(cos(var(--degree)) * var(--offset)), calc(sin(var(--degree)) * var(--offset))) rotateY(45deg);
+}
+.root .parent.round .circle:nth-child(1) {
+  --degree: 1 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(2) {
+  --degree: 2 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(3) {
+  --degree: 3 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(4) {
+  --degree: 4 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(5) {
+  --degree: 5 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(6) {
+  --degree: 6 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(7) {
+  --degree: 7 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(8) {
+  --degree: 8 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(9) {
+  --degree: 9 * (360deg / 10);
+}
+.root .parent.round .circle:nth-child(10) {
+  --degree: 10 * (360deg / 10);
+}
+
+@keyframes raise {
+  to {
+    transform: translateY(500%);
+  }
+}
+@keyframes rotateX {
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

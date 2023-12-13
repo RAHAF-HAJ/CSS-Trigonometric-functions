@@ -1,0 +1,62 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .parent {
+        display: flex;
+        height: 100vh;
+        .circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+        &.row {
+            .circle {
+                --offset: 50px;
+                background-color: red;
+                animation: raise 5s alternate infinite ease-in-out;
+                animation-delay: var(--circle-animation-delay);
+                @for $i from 1 through 10 {
+                    &:nth-child(#{$i}) {
+                        --circle-animation-delay: calc(sin(100deg) * #{$i}s);
+                    }
+                }
+            }
+        }
+        &.round {
+            position: relative;
+            perspective: 100vmin;
+            transform: rotateX(0deg);
+            transform-style: preserve-3d;
+            animation: rotateX 5s infinite alternate;
+            .circle {
+                background-color: blue;
+                position: absolute;
+                inset: 50%;
+                --offset: 100px;
+                transform: translate(
+                    calc(cos(var(--degree)) * var(--offset)),
+                    calc(sin(var(--degree)) * var(--offset))
+                ) rotateY(45deg);
+                @for $i from 1 through 10 {
+                    &:nth-child(#{$i}) {
+                        --degree: #{$i} * (360deg / 10);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes raise {
+    to {
+        transform: translateY(500%);
+    }
+}
+
+
+@keyframes rotateX {
+    to {
+        transform: rotateX(360deg);
+    }
+}
+
