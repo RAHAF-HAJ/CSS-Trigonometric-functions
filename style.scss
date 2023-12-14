@@ -1,62 +1,87 @@
-.root {
+.parent {
+    --item-width: 150px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    .parent {
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--item-width)), 1fr));
+    gap: 1.2rem;
+    
+    counter-reset: blueCounter;
+    counter-reset: spanBlueCounter;
+    counter-reset: divBlueCounter;
+    counter-reset: redCounter;
+
+    span {
+        outline: 5px solid #f1c40f;
+        color: #f1c40f;
+        outline-offset: 2px;
+        &.blue {
+            counter-increment: blueCounter spanBlueCounter;
+            &::before {
+                content: "span blue counter " counter(spanBlueCounter);
+            }
+        }
+    }
+    div {
+        outline: 5px solid #9b59b6;
+        color: #9b59b6;
+        outline-offset: 2px;
+        &.blue {
+            counter-increment: blueCounter divBlueCounter;
+            &::before {
+                content: "div blue counter " counter(divBlueCounter);
+            }
+        }
+    }
+    > * {
+        width: var(--item-width);
+        aspect-ratio: 1;
         display: flex;
-        height: 100vh;
-        .circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        // text-shadow: 0 0 1px #eee;
+        font-size: 1.4rem;
+        &::after, &::before {
+            font-weight: bold;
+            display: block;
+            color: #fff;
+            text-shadow: 0 0 4px black;
+            font-size: 1rem;
         }
-        &.row {
-            .circle {
-                --offset: 50px;
-                background-color: red;
-                animation: raise 5s alternate infinite ease-in-out;
-                animation-delay: var(--circle-animation-delay);
-                @for $i from 1 through 10 {
-                    &:nth-child(#{$i}) {
-                        --circle-animation-delay: calc(sin(100deg) * #{$i}s);
-                    }
-                }
-            }
+    }
+    .blue {
+        background-color: #1abc9c;
+        counter-increment: blueCounter;
+        &::after {
+            content: "blue counter " counter(blueCounter);
         }
-        &.round {
-            position: relative;
-            perspective: 100vmin;
-            transform: rotateX(0deg);
-            transform-style: preserve-3d;
-            animation: rotateX 5s infinite alternate;
-            .circle {
-                background-color: blue;
-                position: absolute;
-                inset: 50%;
-                --offset: 100px;
-                transform: translate(
-                    calc(cos(var(--degree)) * var(--offset)),
-                    calc(sin(var(--degree)) * var(--offset))
-                ) rotateY(45deg);
-                @for $i from 1 through 10 {
-                    &:nth-child(#{$i}) {
-                        --degree: #{$i} * (360deg / 10);
-                    }
-                }
-            }
+    }
+
+    .red {
+        background-color: #e74c3c;
+        counter-increment: redCounter;
+        &::after {
+            content: "red counter " counter(redCounter);
         }
     }
 }
 
-@keyframes raise {
+// Uncomment one of these to see the differences
+// :nth-child(odd of .red) {
+//     animation: rotate 5s ease-in alternate-reverse infinite;
+// }
+// :nth-child(n of .blue) {
+//     animation: rotate 5s ease-in alternate-reverse infinite;
+// }
+// :nth-child(n of span.blue) {
+//     animation: rotate 5s ease-in alternate-reverse infinite;
+// }
+:nth-child(even of div.blue) {
+    animation: rotate 5s ease-in alternate-reverse infinite;
+}
+
+
+@keyframes rotate {
     to {
-        transform: translateY(500%);
+        transform: rotate(360deg);
     }
 }
-
-
-@keyframes rotateX {
-    to {
-        transform: rotateX(360deg);
-    }
-}
-
